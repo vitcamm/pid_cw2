@@ -1,3 +1,0 @@
-/home/dev/pid_cw2/build/CMakeFiles/rebuild_cache.dir
-/home/dev/pid_cw2/build/CMakeFiles/edit_cache.dir
-/home/dev/pid_cw2/build/CMakeFiles/controller_example.dir
