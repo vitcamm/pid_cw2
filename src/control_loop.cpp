@@ -27,6 +27,11 @@ void CONTROLLER::setFlag(bool flag){
 bool CONTROLLER::getFlag(){ 
     return _stop;
 }
+
+double CONTROLLER::getXdes(){
+    return _xdes;
+}
+
 double CONTROLLER::getval(){
     return _Val;
 }

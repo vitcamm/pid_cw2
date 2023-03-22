@@ -36,27 +36,17 @@ int main(int argc, char** argv) {
     
     double refsignal=0;
     ofstream log;
+    ofstream ref;
     bool stop;
-    double Ts=0.0;
-    double Kp=0.0;
-    double Ki=0.0;
-    double Kd=0.0;
 
-    cout<<"\nControllore PID"<<endl;
-    cout<<"Inserire Sample time:\t";
-    cin>>Ts;    
-    cout<<"\n Inserire Kp:\t";
-    cin>>Kp;
-    cout<<"\n Inserire Ki:\t";
-    cin>>Ki;
-    cout<<"\n Inserire Kd:\t";
-    cin>>Kd;
+    
     cout<<"\nref:"<<endl;
     cin>>refsignal;
 
 
-    CONTROLLER Pid(Kp, Ki, Kd, Ts, 0);
-    log.open("control_log2.txt");
+    CONTROLLER Pid(0.1, 1, 0.0001, 0.001, 0);
+    log.open("control_input_log.txt");
+    ref.open("reference.txt");
     cout<<"\nSystem start:"<<endl;
     
     Pid.system_start();
@@ -67,11 +57,12 @@ int main(int argc, char** argv) {
     
     do{ 
         log<<Pid.getval()<<endl;
+        ref<<Pid.getXdes()<<endl;
         stop=Pid.getFlag();
         usleep(0.01*1e6);
     }while(!stop);
 
-
+    ref.close();
     log.close();
     return 0;
 }

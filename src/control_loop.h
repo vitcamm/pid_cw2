@@ -14,6 +14,7 @@ class CONTROLLER {
         void set_xdes(double x);   //member to set the desired value
         void setFlag(bool flag);
         bool getFlag();
+        double getXdes();
         double getval();
         double getErr();
     private:
