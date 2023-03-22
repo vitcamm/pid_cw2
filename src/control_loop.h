@@ -1,7 +1,7 @@
 #include <iostream>
 #include<unistd.h>
 #include "boost/thread.hpp"
-
+#include<atomic>
 
 
 using namespace std;
@@ -12,6 +12,8 @@ class CONTROLLER {
         void loop();               //Main loop function        
         void system_start();       //start the system
         void set_xdes(double x);   //member to set the desired value
+        void setFlag(bool flag);
+        bool getFlag();
         double getval();
         double getErr();
     private:
@@ -23,4 +25,5 @@ class CONTROLLER {
         double _xdes;
         double _Val;
         double _Olderr;
+        bool _stop;
 };

@@ -9,34 +9,67 @@ using namespace std;
 // Sense: read a value from keyboard
 // Plan:  generate the correct input
 // Act:   set the input
+
+void interface(CONTROLLER* C){
+    char control='a';
+    double ref;
+    do{
+        cout<<"\nNew ref:"<<endl;
+        cin>>ref;
+        C->set_xdes(ref);
+        cout<<"\nExit? [y/n]"<<endl;
+        cin>>control;
+        if(control=='y') {
+        C->setFlag(true);
+        }else{
+        C->setFlag(false);
+        }
+    } while(!C->getFlag());
+}
+
+
+
+
 int main(int argc, char** argv) {
     
-    float refsignal=0;
-    
+    double refsignal=0;
     ofstream log;
-    //ofstream err;
+    bool stop;
+    double Ts=0.0;
+    double Kp=0.0;
+    double Ki=0.0;
+    double Kd=0.0;
 
-    CONTROLLER Pi(1, 0.0, 0.000, 0.001, 1);
-    log.open("control_log.txt");
-    //err.open("error_log.txt");
-    //boost::thread t(boost::bind(&CONTROLLER::loop, &Pi))
+    cout<<"\nControllore PID";
+    cout<<"Inserire Sample time:\t";
+    cin>>Ts;    
+    cout<<"\n Inserire Kp:\t";
+    cin>>Kp;
+    cout<<"\n Inserire Ki:\t";
+    cin>>Ki;
+    cout<<"\n Inserire Kd:\t";
+    cin>>Kd;
     cout<<"\nref:"<<endl;
     cin>>refsignal;
+
+
+    CONTROLLER Pid(Kp, Ki, Kd, Ts, 0);
+    log.open("control_log2.txt");
     cout<<"\nSystem start:"<<endl;
-    //Pi.system_start();
-    Pi.set_xdes(refsignal);
-    cout<<"\nValore iniziale: \t"<<Pi.getval()<<endl;
+    
+    Pid.system_start();
+    Pid.set_xdes(refsignal);
+    cout<<"\nInitial value:\t"<<Pid.getval()<<endl;
+    boost::thread terminate_t(&interface, &Pi);
     
     
-    do{
-    
-    log<<Pi.getval()<<endl;
-    //err<<Pi.getErr()<<endl;
-    usleep(0.1*1e6);
-    }while(1);
+    do{ 
+        log<<Pid.getval()<<endl;
+        stop=Pid.getFlag();
+        usleep(0.01*1e6);
+    }while(!stop);
 
 
     log.close();
-    //err.close();
     return 0;
 }
