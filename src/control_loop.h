@@ -1,7 +1,7 @@
 #include <iostream>
 #include<unistd.h>
 #include "boost/thread.hpp"
-#include<atomic>
+
 
 
 using namespace std;

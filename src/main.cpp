@@ -14,15 +14,17 @@ void interface(CONTROLLER* C){
     char control='a';
     double ref;
     do{
-        cout<<"\nNew ref:"<<endl;
-        cin>>ref;
-        C->set_xdes(ref);
-        cout<<"\nExit? [y/n]"<<endl;
+        cout<<"\nSet new Reference[r], Exit[y/n]"<<endl;
+        //cout<<"Exit? [y/n]"<<endl;
         cin>>control;
         if(control=='y') {
         C->setFlag(true);
+        }else if (control=='r'){
+            cout<<"\nr:"<<endl;
+            cin>>ref;
+            C->set_xdes(ref);
         }else{
-        C->setFlag(false);
+            C->setFlag(false);
         }
     } while(!C->getFlag());
 }
@@ -60,7 +62,7 @@ int main(int argc, char** argv) {
     Pid.system_start();
     Pid.set_xdes(refsignal);
     cout<<"\nInitial value:\t"<<Pid.getval()<<endl;
-    boost::thread terminate_t(&interface, &Pi);
+    boost::thread terminate_t(&interface, &Pid);
     
     
     do{ 
