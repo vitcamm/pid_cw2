@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     double Ki=0.0;
     double Kd=0.0;
 
-    cout<<"\nControllore PID";
+    cout<<"\nControllore PID"<<endl;
     cout<<"Inserire Sample time:\t";
     cin>>Ts;    
     cout<<"\n Inserire Kp:\t";
