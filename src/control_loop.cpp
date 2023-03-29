@@ -57,7 +57,7 @@ void CONTROLLER::loop() {
         _Integral+=e*_Ts;
         diff=(e-_Olderr)/_Ts;
         _Val=_Kp*e+_Ki*_Integral+ _Kd*diff;
-        usleep(0.01*1e6);
+        usleep(_Ts*1e6);
     }
 
 }
